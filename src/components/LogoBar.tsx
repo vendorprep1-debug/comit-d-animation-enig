@@ -14,7 +14,7 @@ export function LogoBar({ bounce = false, className }: { bounce?: boolean; class
     >
       <img src="/logos/enig.png" alt="Logo ENIG" className="h-10 w-auto flow:h-6" />
       <span className="h-8 w-px bg-navy/20" aria-hidden />
-      <img src="/logos/4c.jpg" alt="Logo Centre 4C ENIG" className="h-10 w-auto flow:h-6" />
+      <img src="/logos/4c.png" alt="Logo Centre 4C ENIG" className="h-10 w-auto flow:h-6" />
     </motion.div>
   );
 }
