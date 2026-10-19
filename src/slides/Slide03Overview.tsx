@@ -79,7 +79,7 @@ export default function Slide03Overview() {
           return (
             <TiltCard key={c.key} index={i} className="flex min-h-[260px] flex-col justify-between p-8 flow:min-h-0 flow:p-5">
               {c.key === "4c" ? (
-                <div className="w-fit rounded-2xl bg-foreground p-3"><img src="/logos/4c.svg" alt="Logo Centre 4C" className="h-14 flow:h-8" /></div>
+                <div className="w-fit rounded-2xl bg-foreground p-3"><img src="/logos/4c.png" alt="Logo Centre 4C" className="h-14 flow:h-8" /></div>
               ) : (
                 Icon && <Icon className="h-14 w-14 text-lime flow:h-8 flow:w-8" aria-hidden />
               )}
