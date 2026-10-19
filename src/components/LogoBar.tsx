@@ -7,14 +7,14 @@ export function LogoBar({ bounce = false, className }: { bounce?: boolean; class
   const anim = bounce && !thumb && !reduced;
   return (
     <motion.div
-      className={cn("flex items-center gap-4 rounded-full bg-foreground px-9 py-5 shadow-lg flow:gap-1 flow:px-2 flow:py-1", className)}
+      className={cn("flex items-center gap-2 rounded-full bg-foreground px-8 py-4 shadow-lg flow:gap-1 flow:px-2 flow:py-1", className)}
       initial={anim ? { opacity: 0, y: 40, scale: 0.6 } : false}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ type: "spring", stiffness: 260, damping: 11, delay: 1.2 }}
     >
-      <img src="/logos/enig.png" alt="Logo ENIG" className="h-18 w-auto flow:h-6" />
+      <img src="/logos/enig.png" alt="Logo ENIG" className="h-17 w-auto flow:h-6" />
       <span className="h-8 w-px bg-navy/20" aria-hidden />
-      <img src="/logos/4c.png" alt="Logo Centre 4C ENIG" className="h-18 w-auto flow:h-6" />
+      <img src="/logos/4c.png" alt="Logo Centre 4C ENIG" className="h-17 w-auto flow:h-6" />
     </motion.div>
   );
 }
