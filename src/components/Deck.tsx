@@ -104,7 +104,7 @@ export function Deck({ initial, onChange }: { initial: number; onChange: (i: num
     enter: (d: number) => useHex
       ? (d > 0 ? { clipPath: HEX_SMALL, zIndex: 2, opacity: 1 } : { clipPath: HEX_BIG, zIndex: 1, opacity: 1 })
       : { opacity: 0, x: reduced ? 0 : d * 60 },
-    center: { clipPath: useHex ? HEX_BIG : undefined, opacity: 1, x: 0, transitionEnd: { clipPath: "none" } },
+    center: { clipPath: useHex ? HEX_BIG : undefined, opacity: 1, x: 0 },
     exit: (d: number) => useHex
       ? (d > 0 ? { zIndex: 1, opacity: 1, clipPath: HEX_BIG } : { zIndex: 2, clipPath: HEX_SMALL })
       : { opacity: 0, x: reduced ? 0 : -d * 60 },
@@ -123,7 +123,6 @@ export function Deck({ initial, onChange }: { initial: number; onChange: (i: num
         className={flow ? "relative" : "absolute inset-0"}
         style={useHex ? { background: "var(--gradient-bg)" } : undefined}
       >
-        {useHex && <div className="pointer-events-none absolute inset-0 opacity-0" aria-hidden />}
         <Suspense fallback={null}><Current /></Suspense>
       </motion.div>
     </AnimatePresence>
