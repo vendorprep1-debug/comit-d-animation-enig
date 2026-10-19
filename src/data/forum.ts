@@ -138,16 +138,16 @@ export const partners = {
   subtitle: "Forum des Entreprises 5.0 · Industrie 5.0 et Développement durable",
   /** logo : chemin optionnel dans public/partners/ (ex. "/partners/actia.png") */
   list: [
-    { name: "ETAP-OMV", logo: "" },
-    { name: "Oasis des Sciences", logo: "" },
-    { name: "Université de Gabès", logo: "" },
-    { name: "ENIG", logo: "" },
-    { name: "Groupe STUDI", logo: "" },
-    { name: "SECIL", logo: "" },
-    { name: "M3E", logo: "" },
-    { name: "ACTIA", logo: "" },
-    { name: "DNA Consulting", logo: "" },
-    { name: "OneTech", logo: "" },
+    { name: "ETAP-OMV", logo: "/partners/etap.png" },
+    { name: "Oasis des Sciences", logo: "/partners/oasis.png" },
+    { name: "Université de Gabès", logo: "/partners/univ.png" },
+    { name: "ENIG", logo: "/partners/enig.png" },
+    { name: "Groupe STUDI", logo: "/partners/studi.png" },
+    { name: "SECIL", logo: "/partners/secil.png" },
+    { name: "M3E", logo: "/partners/m3e.png" },
+    { name: "ACTIA", logo: "/partners/actia.png" },
+    { name: "DNA Consulting", logo: "/partners/dna.png" },
+    { name: "OneTech", logo: "/partners/one.png" },
   ],
 };
 
