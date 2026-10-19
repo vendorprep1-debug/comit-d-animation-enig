@@ -1,24 +1,34 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useCallback } from "react";
+import { Deck } from "@/components/Deck";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const TITLE = "Comité d’Animation – Forum Entreprise ENIG 2026";
+const DESC = "Présentation du Comité d’Animation du GREEN TECH ENGINEERING FORUM 2026 – 6ème édition du Forum des Entreprises ENIG, mercredi 11 novembre 2026 à Gabès.";
+
 export const Route = createFileRoute("/")({
+  validateSearch: (s: Record<string, unknown>) => ({ slide: Number(s.slide) > 0 ? Math.floor(Number(s.slide)) : undefined }),
+  head: () => ({
+    meta: [
+      { title: TITLE },
+      { name: "description", content: DESC },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESC },
+      { property: "og:type", content: "website" },
+      { property: "og:locale", content: "fr_FR" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESC },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+  const { slide } = Route.useSearch();
+  const navigate = useNavigate({ from: "/" });
+  const onChange = useCallback(
+    (i: number) => navigate({ search: { slide: i === 0 ? undefined : i + 1 }, replace: true }),
+    [navigate],
   );
+  return <Deck initial={(slide ?? 1) - 1} onChange={onChange} />;
 }
