@@ -7,19 +7,19 @@ type P = (typeof partners.list)[number];
 
 function Pill({ p }: { p: P }) {
   return (
-    <div className="mx-4 flex h-[210px] min-w-[420px] items-center justify-center gap-6 px-14 bg-white rounded-2xl shadow-md flow:h-24 flow:min-w-[200px] flow:px-6">
+    <div className="mx-5 flex h-[260px] min-w-[500px] items-center justify-center gap-8 px-16 bg-white rounded-3xl shadow-lg flow:h-28 flow:min-w-[240px] flow:px-8">
       {p.logo ? (
         <img 
           src={p.logo} 
           alt={`Logo ${p.name}`} 
-          className="max-h-[150px] max-w-[380px] object-contain flow:max-h-16" 
+          className="max-h-[190px] max-w-[440px] object-contain flow:max-h-20" 
         />
       ) : (
         <>
-          <span className="flex h-16 w-16 items-center justify-center rounded-xl bg-sun font-display text-4xl text-navy flow:h-10 flow:w-10 flow:text-xl" aria-hidden>
+          <span className="flex h-20 w-20 items-center justify-center rounded-2xl bg-sun font-display text-5xl text-navy flow:h-12 flow:w-12 flow:text-2xl" aria-hidden>
             {p.name[0]}
           </span>
-          <span className="t-label !text-[30px] !tracking-wider flow:!text-sm">{p.name}</span>
+          <span className="t-label !text-[36px] !tracking-wider flow:!text-base">{p.name}</span>
         </>
       )}
     </div>
