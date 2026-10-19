@@ -6,7 +6,7 @@ const TITLE = "Comité d’Animation – Forum Entreprise ENIG 2026";
 const DESC = "Présentation du Comité d’Animation du GREEN TECH ENGINEERING FORUM 2026 – 6ème édition du Forum des Entreprises ENIG, mercredi 11 novembre 2026 à Gabès.";
 
 export const Route = createFileRoute("/")({
-  validateSearch: (s: Record<string, unknown>) => ({ slide: Number(s.slide) > 0 ? Math.floor(Number(s.slide)) : undefined }),
+  validateSearch: (s: Record<string, unknown>): { slide?: number } => (Number(s["slide"]) > 0 ? { slide: Math.floor(Number(s["slide"])) } : {}),
   head: () => ({
     meta: [
       { title: TITLE },
