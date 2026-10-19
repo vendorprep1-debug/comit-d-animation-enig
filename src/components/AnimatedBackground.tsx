@@ -7,13 +7,13 @@ const GREEN = [47, 191, 79], CYAN = [34, 229, 255], LIME = [157, 255, 60];
 const rgba = (c: number[], a: number) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
 const HEX_R = 38;
 
-const ICONS = [
-  new Path2D("M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z M2 21c0-3 1.85-5.36 5.08-6"),
-  new Path2D("M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"),
-  new Path2D("M12 12v10 M12 12 4 7 M12 12l8-5 M12 12V2 M10 22h4"),
-  new Path2D("M5 5h14v14H5z M9 2v3 M15 2v3 M9 19v3 M15 19v3 M2 9h3 M2 15h3 M19 9h3 M19 15h3"),
-  new Path2D("M7 19H4.8a1.8 1.8 0 0 1-1.6-2.7L7.2 9.5 M11 19h8.2a1.8 1.8 0 0 0 1.6-2.7l-1.3-2.1 M14 16l-3 3 3 3 M8.3 13.6 7.2 9.5 3.1 10.6 M9.3 5.8l1.1-1.9a1.8 1.8 0 0 1 3.1 0l3.9 6.8 M13.4 9.6l4.1 1.1 1.1-4.1"),
-  new Path2D("M12 8a4 4 0 1 0 0 8a4 4 0 1 0 0-8 M12 2v3 M12 19v3 M2 12h3 M19 12h3 M4.9 4.9l2.1 2.1 M17 17l2.1 2.1 M4.9 19.1 7 17 M17 7l2.1-2.1"),
+const ICON_PATHS = [
+  ("M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z M2 21c0-3 1.85-5.36 5.08-6"),
+  ("M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"),
+  ("M12 12v10 M12 12 4 7 M12 12l8-5 M12 12V2 M10 22h4"),
+  ("M5 5h14v14H5z M9 2v3 M15 2v3 M9 19v3 M15 19v3 M2 9h3 M2 15h3 M19 9h3 M19 15h3"),
+  ("M7 19H4.8a1.8 1.8 0 0 1-1.6-2.7L7.2 9.5 M11 19h8.2a1.8 1.8 0 0 0 1.6-2.7l-1.3-2.1 M14 16l-3 3 3 3 M8.3 13.6 7.2 9.5 3.1 10.6 M9.3 5.8l1.1-1.9a1.8 1.8 0 0 1 3.1 0l3.9 6.8 M13.4 9.6l4.1 1.1 1.1-4.1"),
+  ("M12 8a4 4 0 1 0 0 8a4 4 0 1 0 0-8 M12 2v3 M12 19v3 M2 12h3 M19 12h3 M4.9 4.9l2.1 2.1 M17 17l2.1 2.1 M4.9 19.1 7 17 M17 7l2.1-2.1"),
 ];
 
 interface Hex { x: number; y: number; lit: number }
@@ -103,7 +103,7 @@ export const AnimatedBackground = memo(function AnimatedBackground({ slideIndex 
     const mobile = window.innerWidth < 768;
     const mouse = { x: -9999, y: -9999, nx: 0, ny: 0 };
     const icons = Array.from({ length: mobile ? 6 : 12 }, (_, i) => ({
-      p: ICONS[i % ICONS.length], x: Math.random(), y: Math.random(), s: 1.6 + Math.random() * 2.2,
+      p: new Path2D(ICON_PATHS[i % ICON_PATHS.length]), x: Math.random(), y: Math.random(), s: 1.6 + Math.random() * 2.2,
       rot: Math.random() * 6, vr: (Math.random() - 0.5) * 0.0002, vy: 0.000008 + Math.random() * 0.00001,
       depth: 10 + Math.random() * 40, a: 0.08 + Math.random() * 0.07,
     }));
@@ -220,8 +220,8 @@ export const AnimatedBackground = memo(function AnimatedBackground({ slideIndex 
       <div className="aurora bottom-[-15%] right-[-10%] h-[60vh] w-[55vw] bg-enig [animation-delay:-8s]" />
       <div className="aurora right-[20%] top-[30%] h-[30vh] w-[25vw] bg-orange4c !opacity-10 [animation-delay:-16s]" />
       <div
-        className="absolute inset-0 transition-[background] duration-[1200ms]"
-        style={{ background: `radial-gradient(ellipse at 50% 40%, color-mix(in oklab, ${hue} 14%, transparent), transparent 70%)` }}
+        className="absolute inset-0 opacity-[0.12] transition-[background-color] duration-[1200ms] [mask-image:radial-gradient(ellipse_at_50%_40%,#000,transparent_75%)]"
+        style={{ backgroundColor: hue }}
       />
       <canvas ref={ref} className="absolute inset-0 h-full w-full" />
       <City />
