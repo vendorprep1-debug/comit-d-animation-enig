@@ -67,7 +67,8 @@ function City() {
   const turbine = (x: number, s: number) => (
     <g transform={`translate(${x} ${200 - 150 * s}) scale(${s})`}>
       <path d="M-3 0 L-6 150 L6 150 L3 0Z" />
-      <g className="spin-slow" style={{ transformOrigin: "0px 0px" }}>
+      <g className="spin-slow">
+        <circle r="70" fill="none" />
         <path d="M0 0 L-4 -70 L4 -70Z" /><path d="M0 0 L-4 -70 L4 -70Z" transform="rotate(120)" /><path d="M0 0 L-4 -70 L4 -70Z" transform="rotate(240)" />
       </g>
       <circle r="6" />
@@ -133,7 +134,7 @@ export const AnimatedBackground = memo(function AnimatedBackground({ slideIndex 
       ctx.clearRect(0, 0, W, H);
       if (grid) ctx.drawImage(grid, 0, 0, W, H);
       // hexagones qui s'illuminent
-      if (!reduced && Math.random() < dt / 90) hexes[Math.floor(Math.random() * hexes.length)].lit = now;
+      if (!reduced && hexes.length && Math.random() < dt / 90) hexes[Math.floor(Math.random() * hexes.length)].lit = now;
       const sAge = now - shock.current, sR = sAge * 1.4;
       const sOn = !reduced && sAge < 2200;
       for (const hx of hexes) {
@@ -154,7 +155,7 @@ export const AnimatedBackground = memo(function AnimatedBackground({ slideIndex 
         ctx.beginPath(); c.pts.forEach(([x, y], k) => (k ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.stroke();
         ctx.fillStyle = rgba(GREEN, 0.4);
         const [sx, sy] = c.pts[0], [ex, ey] = c.pts[c.pts.length - 1];
-        ctx.beginPath(); ctx.arc(sx, sy, 4, 0, 7); ctx.arc(ex, ey, 4, 0, 7); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(sx + 4, sy); ctx.arc(sx, sy, 4, 0, Math.PI * 2); ctx.moveTo(ex + 4, ey); ctx.arc(ex, ey, 4, 0, Math.PI * 2); ctx.fill();
         const [mx, my] = c.pts[2] ?? c.pts[1]; ctx.fillRect(mx - 7, my - 5, 14, 10);
         for (let k = 0; k < c.pulses.length; k++) {
           if (!reduced) c.pulses[k] = (c.pulses[k] + c.speed * dt) % 1;

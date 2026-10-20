@@ -3,12 +3,15 @@ import { ArrowRight } from "lucide-react";
 import { SlideShell } from "@/components/SlideShell";
 import { RevealTitle, FadeIn, DrawUnderline } from "@/components/TextFx";
 import { forum } from "@/data/forum";
+import { useDeck } from "@/lib/deck-context";
+import { cn } from "@/lib/utils";
 
 export default function Slide01Title() {
+  const { thumb, reduced } = useDeck();
   return (
     <SlideShell center logoBounce>
       <FadeIn delay={0.1}>
-        <span className="t-label inline-block rounded-full border border-lime/60 px-6 py-2 text-lime flow:px-3">{forum.badge}</span>
+        <span className={cn("t-label inline-block rounded-full border border-lime/60 px-6 py-2 text-lime flow:px-3", !thumb && !reduced && "pulse-halo")}>{forum.badge}</span>
       </FadeIn>
       <RevealTitle text={forum.committee} className="t-hero mt-8" delay={0.3} stagger={0.05} />
       <DrawUnderline className="mt-2" width={520} delay={1.3} />

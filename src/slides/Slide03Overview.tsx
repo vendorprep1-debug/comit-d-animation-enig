@@ -3,7 +3,7 @@ import { CalendarDays, MapPin, Layers } from "lucide-react";
 import { memo, useEffect, useState } from "react";
 import { SlideShell } from "@/components/SlideShell";
 import { TiltCard } from "@/components/TiltCard";
-import { FadeIn, Typewriter } from "@/components/TextFx";
+import { FadeIn, Typewriter, Float } from "@/components/TextFx";
 import { forum, overview } from "@/data/forum";
 import { useDeck } from "@/lib/deck-context";
 
@@ -42,6 +42,7 @@ function Countdown() {
     const iv = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(iv);
   }, [thumb]);
+  const ready = now !== null;
   const diff = Math.max(0, target - (now ?? target));
   const d = Math.floor(diff / 864e5), h = Math.floor(diff / 36e5) % 24, m = Math.floor(diff / 6e4) % 60, s = Math.floor(diff / 1e3) % 60;
   const pad = (n: number) => String(n).padStart(2, "0");
@@ -53,17 +54,17 @@ function Countdown() {
         <svg viewBox="0 0 120 120" className="h-full w-full -rotate-90">
           <circle cx="60" cy="60" r={R} stroke="var(--glass-border)" strokeWidth="8" fill="none" />
           <circle cx="60" cy="60" r={R} stroke="var(--lime)" strokeWidth="8" fill="none" strokeLinecap="round"
-            strokeDasharray={C} strokeDashoffset={C * frac} style={{ transition: "stroke-dashoffset 1s" }} />
+            strokeDasharray={C} strokeDashoffset={C * (ready ? frac : 1)} style={{ transition: "stroke-dashoffset 1s" }} />
         </svg>
-        <span className="t-num absolute inset-0 flex items-center justify-center text-2xl text-cyan flow:text-sm">J-{d}</span>
+        <span className="t-num absolute inset-0 flex items-center justify-center text-2xl text-cyan flow:text-sm">{ready ? `J-${d}` : "J-…"}</span>
       </div>
       <div>
         <p className="t-label mb-3 text-cyan">{overview.countdownLabel}</p>
         <div className="flex gap-4 flow:gap-2" role="timer" aria-label={`${d} jours ${h} heures ${m} minutes`}>
-          <FlipDigit value={String(d)} label="Jours" />
-          <FlipDigit value={pad(h)} label="Heures" />
-          <FlipDigit value={pad(m)} label="Min" />
-          <FlipDigit value={pad(s)} label="Sec" />
+          <FlipDigit value={ready ? String(d) : "--"} label="Jours" />
+          <FlipDigit value={ready ? pad(h) : "--"} label="Heures" />
+          <FlipDigit value={ready ? pad(m) : "--"} label="Min" />
+          <FlipDigit value={ready ? pad(s) : "--"} label="Sec" />
         </div>
       </div>
     </div>
@@ -81,7 +82,7 @@ export default function Slide03Overview() {
               {c.key === "4c" ? (
                 <div className="w-fit rounded-2xl bg-foreground p-3"><img src="/logos/4c.png" alt="Logo Centre 4C" className="h-14 flow:h-8" /></div>
               ) : (
-                Icon && <Icon className="h-14 w-14 text-lime flow:h-8 flow:w-8" aria-hidden />
+                Icon && <Float delay={i * 0.4} amp={6} className="w-fit"><Icon className="h-14 w-14 text-lime flow:h-8 flow:w-8" aria-hidden /></Float>
               )}
               <div className="mt-6">
                 <p className="font-display text-[64px] leading-none flow:text-3xl">{c.big}</p>

@@ -52,7 +52,11 @@ export function TimerWidget({ onClose }: { onClose: () => void }) {
   );
 }
 
-/** L : pointeur laser avec traînée */
+/** L : pointeur laser vert foncé avec traînée (couleurs modifiables ci-dessous) */
+const LASER_RGB = "11,93,30"; // vert foncé (#0B5D1E)
+const LASER_HEX = "#0B5D1E";
+const LASER_GLOW = "rgba(46,170,80,0.9)"; // halo plus clair pour rester visible sur fond sombre
+
 export function Laser() {
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
@@ -61,19 +65,27 @@ export function Laser() {
     const size = () => { c.width = innerWidth * dpr; c.height = innerHeight * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
     size();
     const trail: { x: number; y: number; t: number }[] = [];
-    const mv = (e: PointerEvent) => trail.push({ x: e.clientX, y: e.clientY, t: performance.now() });
+    let pos: { x: number; y: number } | null = null; // dernière position : le point reste affiché même immobile
+    const mv = (e: PointerEvent) => { pos = { x: e.clientX, y: e.clientY }; trail.push({ ...pos, t: performance.now() }); };
     let raf = 0;
     const loop = () => {
       const now = performance.now();
       while (trail.length && now - trail[0].t > 350) trail.shift();
       ctx.clearRect(0, 0, innerWidth, innerHeight);
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
       for (let i = 1; i < trail.length; i++) {
         const a = 1 - (now - trail[i].t) / 350;
-        ctx.strokeStyle = `rgba(255,60,60,${a})`; ctx.lineWidth = 6 * a; ctx.lineCap = "round";
+        ctx.strokeStyle = `rgba(${LASER_RGB},${a})`; ctx.lineWidth = 7 * a;
+        ctx.shadowBlur = 10 * a; ctx.shadowColor = LASER_GLOW;
         ctx.beginPath(); ctx.moveTo(trail[i - 1].x, trail[i - 1].y); ctx.lineTo(trail[i].x, trail[i].y); ctx.stroke();
       }
-      const p = trail[trail.length - 1];
-      if (p) { ctx.shadowBlur = 20; ctx.shadowColor = "red"; ctx.fillStyle = "#ff4d4d"; ctx.beginPath(); ctx.arc(p.x, p.y, 7, 0, 7); ctx.fill(); ctx.shadowBlur = 0; }
+      if (pos) {
+        const pulse = 1 + 0.12 * Math.sin(now / 180);
+        ctx.shadowBlur = 22; ctx.shadowColor = LASER_GLOW; ctx.fillStyle = LASER_HEX;
+        ctx.beginPath(); ctx.arc(pos.x, pos.y, 8 * pulse, 0, Math.PI * 2); ctx.fill();
+        ctx.shadowBlur = 0; ctx.strokeStyle = "rgba(255,255,255,0.55)"; ctx.lineWidth = 1.5; ctx.stroke(); // fin liseré pour la lisibilité
+      }
+      ctx.shadowBlur = 0;
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);

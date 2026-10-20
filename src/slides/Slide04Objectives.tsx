@@ -84,6 +84,7 @@ function Orbit() {
 }
 
 export default function Slide04Objectives() {
+  const { thumb, reduced } = useDeck();
   return (
     <SlideShell title={objectives.title}>
       <div className="grid flex-1 grid-cols-[1.25fr_1fr] gap-12 flow:grid-cols-1 flow:gap-6">
@@ -94,7 +95,12 @@ export default function Slide04Objectives() {
               <TiltCard key={a.title} index={i + 2} className="p-6 flow:p-4">
                 <p className="font-display text-[34px] leading-tight text-lime flow:text-xl">{a.title}</p>
                 <ul className="t-small mt-3 space-y-1 text-muted-foreground">
-                  {a.items.map((it) => <li key={it}>• {it}</li>)}
+                  {a.items.map((it, k) => (
+                    <motion.li key={it}
+                      initial={thumb ? false : { opacity: 0, x: reduced ? 0 : -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.9 + i * 0.25 + k * 0.15, duration: 0.5 }}>• {it}</motion.li>
+                  ))}
                 </ul>
               </TiltCard>
             ))}

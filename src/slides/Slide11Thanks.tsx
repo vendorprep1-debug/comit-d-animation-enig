@@ -14,7 +14,7 @@ function Celebration() {
     const ctx = c.getContext("2d");
     if (!ctx) return;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
-    const W = window.innerWidth, H = window.innerHeight;
+    const W = c.clientWidth || 1920, H = c.clientHeight || 1080; // taille de la scène (indépendante du scale)
     c.width = W * dpr; c.height = H * dpr;
     ctx.scale(dpr, dpr);
     type Pt = { x: number; y: number; vx: number; vy: number; c: string; r: number; rot: number; vr: number; life: number; hex: boolean };
@@ -47,7 +47,7 @@ function Celebration() {
     raf = requestAnimationFrame(loop);
     return () => { cancelAnimationFrame(raf); timers.forEach(clearTimeout); };
   }, []);
-  return <canvas ref={ref} className="pointer-events-none fixed inset-0 z-30 h-full w-full" aria-hidden />;
+  return <canvas ref={ref} className="pointer-events-none absolute inset-0 z-30 h-full w-full" aria-hidden />;
 }
 
 export default function Slide11Thanks() {

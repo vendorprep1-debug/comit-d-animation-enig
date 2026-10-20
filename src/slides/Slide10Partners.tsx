@@ -7,7 +7,7 @@ type P = (typeof partners.list)[number];
 
 function Pill({ p }: { p: P }) {
   return (
-    <div className="mx-5 flex h-[260px] min-w-[500px] items-center justify-center gap-8 px-16 bg-white rounded-3xl shadow-lg flow:h-28 flow:min-w-[240px] flow:px-8">
+    <div className="mx-5 flex h-[260px] min-w-[500px] items-center justify-center gap-8 px-16 bg-white rounded-3xl shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:scale-105 flow:h-28 flow:min-w-[240px] flow:px-8">
       {p.logo ? (
         <img 
           src={p.logo} 

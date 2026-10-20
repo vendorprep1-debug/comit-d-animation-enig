@@ -7,13 +7,17 @@ import { missions } from "@/data/forum";
 import { useDeck } from "@/lib/deck-context";
 
 function Clock({ anim }: { anim: boolean }) {
+  const hand = (x2: number, y2: number, color: string, dur: number) => (
+    <line x1="24" y1="24" x2={x2} y2={y2} stroke={color} strokeWidth="3.5" strokeLinecap="round">
+      {anim && <animateTransform attributeName="transform" type="rotate" from="0 24 24" to="360 24 24" dur={`${dur}s`} repeatCount="indefinite" />}
+    </line>
+  );
   return (
     <svg viewBox="0 0 48 48" className="h-14 w-14 flow:h-9 flow:w-9" aria-hidden>
       <circle cx="24" cy="24" r="20" fill="none" stroke="var(--lime)" strokeWidth="3.5" />
-      <motion.line x1="24" y1="24" x2="24" y2="10" stroke="var(--cyan)" strokeWidth="3.5" strokeLinecap="round"
-        style={{ originX: "24px", originY: "24px" }} animate={anim ? { rotate: 360 } : undefined} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} />
-      <motion.line x1="24" y1="24" x2="33" y2="24" stroke="var(--lime)" strokeWidth="3.5" strokeLinecap="round"
-        style={{ originX: "24px", originY: "24px" }} animate={anim ? { rotate: 360 } : undefined} transition={{ duration: 36, repeat: Infinity, ease: "linear" }} />
+      {hand(24, 10, "var(--cyan)", 3)}
+      {hand(33, 24, "var(--lime)", 36)}
+      <circle cx="24" cy="24" r="2.5" fill="var(--sun)" />
     </svg>
   );
 }

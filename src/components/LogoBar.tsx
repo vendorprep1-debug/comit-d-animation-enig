@@ -12,7 +12,7 @@ export function LogoBar({ bounce = false, className }: { bounce?: boolean; class
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ type: "spring", stiffness: 260, damping: 11, delay: 1.2 }}
     >
-      <img src="/logos/enig.png" alt="Logo ENIG" className="h-16 w-auto flow:h-2" />
+      <img src="/logos/enig.png" alt="Logo ENIG" className="h-16 w-auto flow:h-6" />
       <span className="h-5 w-px bg-navy/20" aria-hidden />
       <img src="/logos/4c.png" alt="Logo Centre 4C ENIG" className="h-16 w-auto flow:h-6" />
     </motion.div>

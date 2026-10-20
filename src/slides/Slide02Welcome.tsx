@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { SlideShell } from "@/components/SlideShell";
-import { RevealTitle, FadeIn } from "@/components/TextFx";
+import { RevealTitle, FadeIn, Float } from "@/components/TextFx";
 import { welcome } from "@/data/forum";
 import { useDeck } from "@/lib/deck-context";
 
@@ -19,7 +19,7 @@ function Microphone() {
           transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.8, ease: "easeOut" }}
         />
       ))}
-      <svg viewBox="0 0 200 260" className="relative h-[460px] flow:h-52" role="img" aria-label="Micro stylisé">
+      <Float amp={10} duration={3.6}><svg viewBox="0 0 200 260" className="relative h-[460px] flow:h-52" role="img" aria-label="Micro stylisé">
         <defs>
           <linearGradient id="micG" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="var(--cyan)" />
@@ -31,7 +31,7 @@ function Microphone() {
         <path d="M40 100 v10 a60 60 0 0 0 120 0 v-10" fill="none" stroke="var(--enig)" strokeWidth="10" strokeLinecap="round" />
         <line x1="100" y1="170" x2="100" y2="215" stroke="var(--enig)" strokeWidth="10" />
         <rect x="60" y="212" width="80" height="12" rx="6" fill="var(--sun)" />
-      </svg>
+      </svg></Float>
       <div className="mt-6 flex h-20 items-end gap-2 flow:h-10" aria-hidden>
         {Array.from({ length: 14 }).map((_, i) => (
           <motion.span

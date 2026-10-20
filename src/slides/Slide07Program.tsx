@@ -84,7 +84,7 @@ export default function Slide07Program() {
             onClick={(e) => { e.stopPropagation(); setTab(t); }}
             className={cn("t-label relative rounded-full px-7 py-2.5 transition-colors flow:px-4", tab === t ? "text-navy" : "text-foreground glass")}
           >
-            {tab === t && <motion.span layoutId="tabpill" className="absolute inset-0 rounded-full bg-sun" />}
+            <motion.span aria-hidden className="absolute inset-0 rounded-full bg-sun" initial={false} animate={{ opacity: tab === t ? 1 : 0, scale: tab === t ? 1 : 0.85 }} transition={{ type: "spring", stiffness: 320, damping: 26 }} />
             <span className="relative">{t === "morning" ? "Matinée" : "Après-midi"}</span>
           </button>
         ))}

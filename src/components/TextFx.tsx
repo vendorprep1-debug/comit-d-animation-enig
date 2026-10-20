@@ -103,3 +103,18 @@ export function FadeIn({ children, delay = 0, y = 30, className }: { children: R
     </motion.div>
   );
 }
+
+/** Flottement doux et continu (icônes, illustrations) */
+export function Float({ children, className, delay = 0, amp = 8, duration = 3.2 }: { children: React.ReactNode; className?: string; delay?: number; amp?: number; duration?: number }) {
+  const { thumb, reduced } = useDeck();
+  if (thumb || reduced) return <div className={className}>{children}</div>;
+  return (
+    <motion.div
+      className={className}
+      animate={{ y: [0, -amp, 0] }}
+      transition={{ duration, repeat: Infinity, ease: "easeInOut", delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}
